@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/workouts.dart';
+import 'package:workout_app/screens/workouts/workouts.dart';
 
 void main() => runApp(const MyApp());
 
