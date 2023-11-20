@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/screens/workouts/components/search_bar.dart';
-import 'components/workout_view_toggle_buttons.dart';
+import 'package:workout_app/screens/workouts/components/workout_list.dart';
+import 'package:workout_app/screens/workouts/components/workout_view_toggle_buttons.dart';
 
 class Workouts extends StatelessWidget {
   const Workouts({super.key});
@@ -24,6 +25,10 @@ class Workouts extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: WorkoutSearchBar(),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: WorkoutList(),
               ),
             ],
           ),

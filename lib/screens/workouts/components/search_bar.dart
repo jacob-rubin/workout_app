@@ -10,6 +10,6 @@ class WorkoutSearchBar extends StatefulWidget {
 class _WorkoutSearchBarState extends State<WorkoutSearchBar> {
   @override
   Widget build(BuildContext context) {
-    return const SearchBar();
+    return const TextField();
   }
 }
