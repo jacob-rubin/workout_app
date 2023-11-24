@@ -5,38 +5,14 @@ enum View {
   bodyPart,
 }
 
-class Workouts extends StatelessWidget {
-  const Workouts({super.key});
+class WorkoutViewToggles extends StatefulWidget {
+  const WorkoutViewToggles({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Workouts'),
-      ),
-      body: const Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              WorkoutViews(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  State<WorkoutViewToggles> createState() => _WorkoutViewTogglesState();
 }
 
-class WorkoutViews extends StatefulWidget {
-  const WorkoutViews({super.key});
-
-  @override
-  State<WorkoutViews> createState() => _WorkoutViewsState();
-}
-
-class _WorkoutViewsState extends State<WorkoutViews> {
+class _WorkoutViewTogglesState extends State<WorkoutViewToggles> {
   View _view = View.list;
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/workouts.dart';
+import 'package:workout_app/screens/workouts/workouts.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Workout App',
-      theme: ThemeData(useMaterial3: true, colorScheme: const ColorScheme.dark()),
+      theme: ThemeData(useMaterial3: true, colorScheme: const ColorScheme.light()),
       home: const Workouts(),
     );
   }
