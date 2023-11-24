@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Workout App',
-      theme: ThemeData(useMaterial3: true, colorScheme: ColorScheme.light()),
+      theme: ThemeData(useMaterial3: true, colorScheme: const ColorScheme.light()),
       home: const Workouts(),
     );
   }

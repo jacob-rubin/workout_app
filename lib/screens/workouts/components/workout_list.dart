@@ -6,6 +6,7 @@ class WorkoutList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: const <Widget>[
         ListTile(
           title: Text('Workout 1'),
