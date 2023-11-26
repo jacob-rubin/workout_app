@@ -154,8 +154,7 @@ extension ExerciseQueryWhere on QueryBuilder<Exercise, Exercise, QWhereClause> {
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<Exercise, Exercise, QAfterWhereClause> idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -163,8 +162,7 @@ extension ExerciseQueryWhere on QueryBuilder<Exercise, Exercise, QWhereClause> {
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<Exercise, Exercise, QAfterWhereClause> idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -189,8 +187,7 @@ extension ExerciseQueryWhere on QueryBuilder<Exercise, Exercise, QWhereClause> {
   }
 }
 
-extension ExerciseQueryFilter
-    on QueryBuilder<Exercise, Exercise, QFilterCondition> {
+extension ExerciseQueryFilter on QueryBuilder<Exercise, Exercise, QFilterCondition> {
   QueryBuilder<Exercise, Exercise, QAfterFilterCondition> bodyPartEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -279,9 +276,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> bodyPartContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> bodyPartContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'bodyPart',
@@ -291,9 +286,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> bodyPartMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> bodyPartMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'bodyPart',
@@ -409,9 +402,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> equipmentContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> equipmentContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'equipment',
@@ -421,9 +412,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> equipmentMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> equipmentMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'equipment',
@@ -442,8 +431,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition>
-      equipmentIsNotEmpty() {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> equipmentIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'equipment',
@@ -540,9 +528,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> gifContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> gifContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'gif',
@@ -552,9 +538,7 @@ extension ExerciseQueryFilter
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> gifMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QAfterFilterCondition> gifMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'gif',
@@ -635,11 +619,9 @@ extension ExerciseQueryFilter
   }
 }
 
-extension ExerciseQueryObject
-    on QueryBuilder<Exercise, Exercise, QFilterCondition> {}
+extension ExerciseQueryObject on QueryBuilder<Exercise, Exercise, QFilterCondition> {}
 
-extension ExerciseQueryLinks
-    on QueryBuilder<Exercise, Exercise, QFilterCondition> {}
+extension ExerciseQueryLinks on QueryBuilder<Exercise, Exercise, QFilterCondition> {}
 
 extension ExerciseQuerySortBy on QueryBuilder<Exercise, Exercise, QSortBy> {
   QueryBuilder<Exercise, Exercise, QAfterSortBy> sortByBodyPart() {
@@ -679,8 +661,7 @@ extension ExerciseQuerySortBy on QueryBuilder<Exercise, Exercise, QSortBy> {
   }
 }
 
-extension ExerciseQuerySortThenBy
-    on QueryBuilder<Exercise, Exercise, QSortThenBy> {
+extension ExerciseQuerySortThenBy on QueryBuilder<Exercise, Exercise, QSortThenBy> {
   QueryBuilder<Exercise, Exercise, QAfterSortBy> thenByBodyPart() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'bodyPart', Sort.asc);
@@ -730,32 +711,27 @@ extension ExerciseQuerySortThenBy
   }
 }
 
-extension ExerciseQueryWhereDistinct
-    on QueryBuilder<Exercise, Exercise, QDistinct> {
-  QueryBuilder<Exercise, Exercise, QDistinct> distinctByBodyPart(
-      {bool caseSensitive = true}) {
+extension ExerciseQueryWhereDistinct on QueryBuilder<Exercise, Exercise, QDistinct> {
+  QueryBuilder<Exercise, Exercise, QDistinct> distinctByBodyPart({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'bodyPart', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QDistinct> distinctByEquipment(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QDistinct> distinctByEquipment({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'equipment', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Exercise, Exercise, QDistinct> distinctByGif(
-      {bool caseSensitive = true}) {
+  QueryBuilder<Exercise, Exercise, QDistinct> distinctByGif({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'gif', caseSensitive: caseSensitive);
     });
   }
 }
 
-extension ExerciseQueryProperty
-    on QueryBuilder<Exercise, Exercise, QQueryProperty> {
+extension ExerciseQueryProperty on QueryBuilder<Exercise, Exercise, QQueryProperty> {
   QueryBuilder<Exercise, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');

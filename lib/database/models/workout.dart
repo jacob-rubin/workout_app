@@ -1,5 +1,5 @@
 import 'package:isar/isar.dart';
-import 'package:workout_app/database/schema/lift.dart';
+import 'package:workout_app/database/models/lift.dart';
 
 part 'workout.g.dart';
 
