@@ -9,7 +9,7 @@ class LiftService {
   /// Adds a lift to the database.
   /// @param Lift The lift to add.
   /// @return The id of the lift added.
-  Future<int> createLift(Lift lift) async {
+  Future<int> addLift(Lift lift) async {
     return await isar.writeTxn(() async {
       return await isar.lifts.put(lift);
     });
@@ -31,17 +31,16 @@ class LiftService {
 
   /// Updates a lift in the database.
   /// @param lift The lift to update.
-  /// @return The id of the lift updated.
   /// @throws Exception if the lift is not found.
-  Future<int> updateLift(Lift lift) async {
+  Future<void> updateLift(Lift lift) async {
     final Lift? queriedLift = await isar.lifts.get(lift.id);
 
     if (queriedLift == null) {
       throw Exception('Lift not found');
     }
 
-    return await isar.writeTxn(() async {
-      return await isar.lifts.put(lift);
+    await isar.writeTxn(() async {
+      await isar.lifts.put(lift);
     });
   }
 
