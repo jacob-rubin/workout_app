@@ -14,6 +14,23 @@ class ExerciseService {
     });
   }
 
+  /// @param json JSON of Exercise to be added
+  /// @returns Id of the created Exercise
+  Future<int> addExerciseFromJSON(Map<String, dynamic> json) async {
+    Exercise exercise = Exercise()
+      ..name = json['name']
+      ..bodyPart = json['bodyPart']
+      ..equipment = json['equipment']
+      ..targetMuscle = json['target']
+      ..secondaryMuscles = json['secondaryMuscles']
+      ..instructions = json['instructions']
+      ..gifId = json['id'];
+
+    return isar.writeTxn(() async {
+      return await isar.exercises.put(exercise);
+    });
+  }
+
   /// @returns List of Exercises
   Future<List<Exercise>> findExercises() async {
     return isar.exercises.where().findAll();
@@ -34,7 +51,7 @@ class ExerciseService {
       throw Exception('Lift not found');
     }
 
-    isar.writeTxn(() async {
+    await isar.writeTxn(() async {
       await isar.exercises.put(exercise);
     });
   }
