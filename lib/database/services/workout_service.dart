@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
 
 class WorkoutService {
@@ -25,6 +26,36 @@ class WorkoutService {
   /// @param id The id of the workout to get.
   Future<Workout?> findWorkoutById(int id) async {
     return await isar.workouts.get(id);
+  }
+
+  // Add lift to workout
+  Future<void> addLiftToWorkout(int workoutId, Lift lift) async {
+    final Workout? workout = await findWorkoutById(workoutId);
+
+    if (workout == null) {
+      throw Exception('Workout not found');
+    }
+
+    final newWorkout = workout..lifts.add(lift);
+
+    await isar.writeTxn(() async {
+      await isar.workouts.put(newWorkout);
+    });
+  }
+
+  // Remove lift from workout
+  Future<void> removeLiftFromWorkout(int workoutId, Lift lift) async {
+    final Workout? workout = await findWorkoutById(workoutId);
+
+    if (workout == null) {
+      throw Exception('Workout not found');
+    }
+
+    final newWorkout = workout..lifts.remove(lift);
+
+    await isar.writeTxn(() async {
+      await isar.workouts.put(newWorkout);
+    });
   }
 
   /// Updates a workout in the database.
