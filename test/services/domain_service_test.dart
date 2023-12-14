@@ -7,8 +7,6 @@ import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
 import 'package:workout_app/database/services/domain_services.dart';
 
-import 'package:workout_app/database/utils/utils.dart';
-
 void main() {
   late Isar mockIsar;
   late Directory mockDir;
@@ -131,48 +129,6 @@ void main() {
       expect(exerciseList, hasLength(1));
       expect(exerciseList[0].name, exercises[1].name);
       expect(deletedExercise, isNull);
-    });
-  });
-
-  group('Lift Service', () {
-    final Exercise exercise = Exercise()
-      ..id = 1
-      ..name = 'Bench Press'
-      ..bodyPart = 'Chest'
-      ..equipment = 'Barbell'
-      ..targetMuscle = 'Pectoralis Major'
-      ..secondaryMuscles = ['Triceps', 'Anterior Deltoid']
-      ..instructions = ['Lie on bench', 'Lower bar to chest', 'Press bar back up']
-      ..gifId = '001';
-
-    final Lift lift = Lift()
-      ..id = 1
-      ..sets = [
-        Set()
-          ..reps = 5
-          ..weight = 135,
-        Set()
-          ..reps = 5
-          ..weight = 135,
-        Set()
-          ..reps = 5
-          ..weight = 135,
-      ]
-      ..notes = 'Notes for the lift'
-      ..exercise.value = exercise;
-
-    setUp(() async {
-      // Clear database and adds a mock lift
-      await mockIsar.writeTxn(() async {
-        await mockIsar.lifts.clear();
-        await mockIsar.lifts.put(lift);
-        await lift.exercise.save();
-      });
-    });
-
-    test('Links to the exercise', () async {
-      final Lift? queriedLift = await mockIsar.lifts.get(1);
-      printObject(queriedLift as Object);
     });
   });
 }
