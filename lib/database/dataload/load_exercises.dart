@@ -26,7 +26,7 @@ class ExerciseJSONElement {
   }
 }
 
-void loadExercises(Isar isar, DomainService domainService) async {
+Future<void> loadExercises(Isar isar, DomainService domainService) async {
   final String dataString = await rootBundle.loadString('lib/database/data/exerciseData.json');
   final data = jsonDecode(dataString);
 
