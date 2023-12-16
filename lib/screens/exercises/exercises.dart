@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/workouts/components/search_bar.dart';
-import 'package:workout_app/screens/workouts/components/workout_list.dart';
-import 'package:workout_app/screens/workouts/components/workout_view_toggle_buttons.dart';
+import 'package:workout_app/screens/exercises/components/exercise_list.dart';
+import 'package:workout_app/screens/exercises/components/search_bar.dart';
+import 'package:workout_app/screens/exercises/components/exercise_view_toggle_buttons.dart';
 
-class Workouts extends StatelessWidget {
-  const Workouts({super.key});
+class Exercises extends StatelessWidget {
+  const Exercises({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Workouts extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: WorkoutList(),
+                child: ExerciseList(),
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:isar/isar.dart';
+import 'package:workout_app/database/models/exercise.dart';
 import 'package:workout_app/database/services/domain_services.dart';
 
 class ExerciseJSONElement {

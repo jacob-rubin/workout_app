@@ -89,7 +89,6 @@ void main() {
       final List<Exercise> queriedExercises = await domainService.exerciseService.findExercises();
 
       expect(queriedExercises, hasLength(2));
-      print(queriedExercises);
 
       // TODO: Make this test more robust
       expect(queriedExercises[0].name, exercises[0].name);
@@ -111,7 +110,6 @@ void main() {
 
     test('Updates an exercise', () async {
       final Exercise newExercise = exercises[0]..name = 'Bench Press Updated';
-      print(newExercise.name);
 
       await domainService.exerciseService.updateExercise(newExercise);
       final Exercise? queriedExercise = await mockIsar.exercises.get(1);
