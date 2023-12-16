@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:workout_app/database/services/domain_services.dart';
 
@@ -26,11 +26,11 @@ class ExerciseJSONElement {
   }
 }
 
-void loadExercises(Isar isar, DomainService domainService) async {
-  final String dataString = await rootBundle.loadString('lib/database/data/exerciseData.json');
-  final data = jsonDecode(dataString);
+Future<void> loadExercises(Isar isar, DomainService domainService) async {
+  final String dataString = await File('lib/database/data/exerciseData.json').readAsString();
+  final List data = await jsonDecode(dataString);
 
   for (var exercise in data) {
-    domainService.exerciseService.addExerciseFromJSON(exercise);
+    await domainService.exerciseService.addExerciseFromJSON(exercise);
   }
 }

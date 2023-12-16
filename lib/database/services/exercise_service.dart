@@ -22,11 +22,11 @@ class ExerciseService {
       ..bodyPart = json['bodyPart']
       ..equipment = json['equipment']
       ..targetMuscle = json['target']
-      ..secondaryMuscles = json['secondaryMuscles']
-      ..instructions = json['instructions']
+      ..secondaryMuscles = json['secondaryMuscles'].cast<String>()
+      ..instructions = json['instructions'].cast<String>()
       ..gifId = json['id'];
 
-    return isar.writeTxn(() async {
+    return await isar.writeTxn(() async {
       return await isar.exercises.put(exercise);
     });
   }
