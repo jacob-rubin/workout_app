@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:workout_app/screens/exercises/components/exercise_list.dart';
+
+class Exercises extends StatelessWidget {
+  const Exercises({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Workouts'),
+      ),
+      body: const Center(
+        child: ExerciseList(),
+      ),
+    );
+  }
+}

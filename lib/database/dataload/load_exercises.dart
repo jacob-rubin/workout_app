@@ -27,7 +27,7 @@ class ExerciseJSONElement {
 }
 
 Future<void> loadExercises(Isar isar, DomainService domainService) async {
-  final String dataString = await File('lib/database/data/exerciseData.json').readAsString();
+  final String dataString = await File('/Users/VTNC34/Desktop/workout_app/lib/database/data/exerciseData.json').readAsString();
   final List data = await jsonDecode(dataString);
 
   for (var exercise in data) {
