@@ -16,25 +16,26 @@ class _ExerciseListState extends State<ExerciseList> {
   late DomainService _domainService;
   late Isar _isar;
 
-  @override
-  Future<void> initState() async {
-    _domainService = DomainService.withIsar(_isar);
+  Future<List<Exercise>> getExercises() async {
     _isar = await Isar.open(
       [ExerciseSchema],
       directory: (await getApplicationDocumentsDirectory()).path,
       name: 'exerciseInstance',
     );
+    _domainService = DomainService.withIsar(_isar);
+
     final List<Exercise> exercises = await _isar.exercises.where().findAll();
 
     if (exercises.isEmpty) {
       await loadExercises(_isar, _domainService);
     }
-    super.initState();
+
+    return exercises;
   }
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<Exercise>> exercises = _isar.exercises.where().findAll();
+    final Future<List<Exercise>> exercises = getExercises();
 
     return FutureBuilder<List<Exercise>>(
       future: exercises,
