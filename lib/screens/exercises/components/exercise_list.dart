@@ -3,7 +3,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workout_app/database/dataload/load_exercises.dart';
 import 'package:workout_app/database/models/exercise.dart';
-import 'package:workout_app/database/services/domain_services.dart';
+import 'package:workout_app/database/services/isar_service.dart';
 
 class ExerciseList extends StatefulWidget {
   const ExerciseList({super.key});
@@ -13,7 +13,7 @@ class ExerciseList extends StatefulWidget {
 }
 
 class _ExerciseListState extends State<ExerciseList> {
-  late DomainService _domainService;
+  late IsarService _isarService;
   late Isar _isar;
 
   Future<List<Exercise>> getExercises() async {
@@ -22,12 +22,12 @@ class _ExerciseListState extends State<ExerciseList> {
       directory: (await getApplicationDocumentsDirectory()).path,
       name: 'exerciseInstance',
     );
-    _domainService = DomainService.withIsar(_isar);
+    _isarService = IsarService.withIsar(_isar);
 
     final List<Exercise> exercises = await _isar.exercises.where().findAll();
 
     if (exercises.isEmpty) {
-      await loadExercises(_isar, _domainService);
+      await loadExercises(_isar, _isarService);
     }
 
     return exercises;

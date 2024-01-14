@@ -9,19 +9,19 @@ import 'package:workout_app/database/services/exercise_service.dart';
 import 'package:workout_app/database/services/lift_service.dart';
 import 'package:workout_app/database/services/workout_service.dart';
 
-class DomainService {
+class IsarService {
   late final Directory _dir;
   late final Isar _isar;
   late final WorkoutService _workoutService;
   late final ExerciseService _exerciseService;
   late final LiftService _liftService;
 
-  DomainService() {
+  IsarService() {
     init();
   }
 
   // Only used for testing. In the future, this should be replaced with a mock Isar instance
-  DomainService.withIsar(this._isar) {
+  IsarService.withIsar(this._isar) {
     _workoutService = WorkoutService(_isar);
     _exerciseService = ExerciseService(_isar);
     _liftService = LiftService(_isar);
@@ -29,13 +29,18 @@ class DomainService {
 
   Future<void> init() async {
     _dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      [WorkoutSchema, ExerciseSchema, LiftSchema],
-      directory: _dir.path,
-    );
     _workoutService = WorkoutService(_isar);
     _exerciseService = ExerciseService(_isar);
     _liftService = LiftService(_isar);
+
+    if (Isar.instanceNames.isEmpty) {
+      _isar = await Isar.open(
+        [ExerciseSchema, WorkoutSchema, LiftSchema],
+        directory: _dir.path,
+      );
+    } else {
+      _isar = Isar.getInstance()!;
+    }
   }
 
   Future<void> close() async {
