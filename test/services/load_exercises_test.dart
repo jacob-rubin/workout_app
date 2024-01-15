@@ -5,22 +5,22 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
 import 'package:workout_app/database/dataload/load_exercises.dart';
 import 'package:workout_app/database/models/exercise.dart';
-import 'package:workout_app/database/services/domain_services.dart';
+import 'package:workout_app/database/services/isar_service.dart';
 
 void main() {
   late Isar mockIsar;
   late Directory mockDir;
-  late DomainService domainService;
+  late IsarService isarService;
 
   setUpAll(() async {
     mockDir = Directory.systemTemp.createTempSync();
     await Isar.initializeIsarCore(download: true);
 
     if (Isar.instanceNames.isEmpty) {
-      mockIsar = await Isar.open([ExerciseSchema], directory: mockDir.path, name: 'domainInstance');
+      mockIsar = await Isar.open([ExerciseSchema], directory: mockDir.path);
     }
 
-    domainService = DomainService.withIsar(mockIsar);
+    isarService = IsarService.withIsar(mockIsar);
   });
 
   tearDownAll(() async {
@@ -29,7 +29,7 @@ void main() {
 
   group('Dataloader', () {
     test('Dataloads the JSON of exercises into isar', () async {
-      await loadExercises(mockIsar, domainService);
+      await loadExercises(mockIsar, isarService);
       final List exerciseJSON = await jsonDecode(await File('lib/database/data/exerciseData.json').readAsString());
       final List<Exercise> dbExercises = await mockIsar.exercises.where().findAll();
 

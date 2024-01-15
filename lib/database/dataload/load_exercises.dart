@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:isar/isar.dart';
-import 'package:workout_app/database/services/domain_services.dart';
+import 'package:workout_app/database/services/isar_service.dart';
 
 class ExerciseJSONElement {
   late String bodyPart;
@@ -26,11 +26,11 @@ class ExerciseJSONElement {
   }
 }
 
-Future<void> loadExercises(Isar isar, DomainService domainService) async {
+Future<void> loadExercises(Isar isar, IsarService isarService) async {
   final String dataString = await File('/Users/VTNC34/Desktop/workout_app/lib/database/data/exerciseData.json').readAsString();
   final List data = await jsonDecode(dataString);
 
   for (var exercise in data) {
-    await domainService.exerciseService.addExerciseFromJSON(exercise);
+    await isarService.exerciseService.addExerciseFromJSON(exercise);
   }
 }

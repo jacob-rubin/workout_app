@@ -5,21 +5,21 @@ import 'package:isar/isar.dart';
 import 'package:workout_app/database/models/exercise.dart';
 import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
-import 'package:workout_app/database/services/domain_services.dart';
+import 'package:workout_app/database/services/isar_service.dart';
 
 void main() {
   late Isar mockIsar;
   late Directory mockDir;
-  late DomainService domainService;
+  late IsarService isarService;
 
   setUpAll(() async {
     mockDir = Directory.systemTemp.createTempSync();
     await Isar.initializeIsarCore(download: true);
 
     if (Isar.instanceNames.isEmpty) {
-      mockIsar = await Isar.open([ExerciseSchema, WorkoutSchema, LiftSchema], directory: mockDir.path, name: 'domainInstance');
+      mockIsar = await Isar.open([ExerciseSchema, WorkoutSchema, LiftSchema], directory: mockDir.path);
     }
-    domainService = DomainService.withIsar(mockIsar);
+    isarService = IsarService.withIsar(mockIsar);
   });
 
   tearDownAll(() async {
@@ -72,7 +72,7 @@ void main() {
         ..instructions = ['Lie on bench', 'Lower bar to chest', 'Press bar back up']
         ..gifId = 'bench-press';
 
-      final int id = await domainService.exerciseService.addExercise(exercise);
+      final int id = await isarService.exerciseService.addExercise(exercise);
       final Exercise? queriedExercise = await mockIsar.exercises.get(id);
 
       expect(queriedExercise, isNotNull);
@@ -86,24 +86,22 @@ void main() {
     });
 
     test('Finds all exercises', () async {
-      final List<Exercise> queriedExercises = await domainService.exerciseService.findExercises();
+      final List<Exercise> queriedExercises = await isarService.exerciseService.findExercises();
 
       expect(queriedExercises, hasLength(2));
-
-      // TODO: Make this test more robust
       expect(queriedExercises[0].name, exercises[0].name);
       expect(queriedExercises[1].name, exercises[1].name);
     });
 
     test('Finds an exercise by ID', () async {
-      final Exercise? queriedExercise = await domainService.exerciseService.findExerciseById(1);
+      final Exercise? queriedExercise = await isarService.exerciseService.findExerciseById(1);
 
       expect(queriedExercise, isNotNull);
       expect(queriedExercise!.name, exercises[0].name);
     });
 
     test('Returns null if exercise is not found', () async {
-      final Exercise? queriedExercise = await domainService.exerciseService.findExerciseById(3);
+      final Exercise? queriedExercise = await isarService.exerciseService.findExerciseById(3);
 
       expect(queriedExercise, isNull);
     });
@@ -111,7 +109,7 @@ void main() {
     test('Updates an exercise', () async {
       final Exercise newExercise = exercises[0]..name = 'Bench Press Updated';
 
-      await domainService.exerciseService.updateExercise(newExercise);
+      await isarService.exerciseService.updateExercise(newExercise);
       final Exercise? queriedExercise = await mockIsar.exercises.get(1);
 
       expect(queriedExercise, isNotNull);
@@ -119,7 +117,7 @@ void main() {
     });
 
     test('Deletes an exercise', () async {
-      await domainService.exerciseService.deleteExercise(1);
+      await isarService.exerciseService.deleteExercise(1);
 
       final List<Exercise> exerciseList = await mockIsar.exercises.where().findAll();
       final Exercise? deletedExercise = await mockIsar.exercises.get(1);
