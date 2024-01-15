@@ -26,7 +26,8 @@ class IsarService {
   }
 
   Future<void> init() async {
-    if (Isar.instanceNames.isEmpty) {
+    // TODO: Very hacky solution. Debug and fix
+    if (Isar.getInstance() == null) {
       Directory dir = await getApplicationDocumentsDirectory();
       _isar = await Isar.open(
         [ExerciseSchema, WorkoutSchema, LiftSchema],
@@ -37,12 +38,10 @@ class IsarService {
       _exerciseService = ExerciseService(_isar);
       _liftService = LiftService(_isar);
 
-      await loadExercises(_isar, this);
-    } else {
-      if (Isar.getInstance() == null) {
-        throw Exception('Isar instance already exists');
+      if (await _isar.exercises.count() == 0) {
+        await loadExercises(_isar, this);
       }
-
+    } else {
       _isar = Isar.getInstance()!;
       _workoutService = WorkoutService(_isar);
       _exerciseService = ExerciseService(_isar);
