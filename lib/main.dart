@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/exercises/exercises.dart';
+import 'package:provider/provider.dart';
+import 'package:workout_app/database/services/isar_service.dart';
+import 'package:workout_app/screens/home/home.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,10 +10,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Workout App',
-      theme: ThemeData(useMaterial3: true, colorScheme: const ColorScheme.light()),
-      home: const Exercises(),
+    return Provider<IsarService>(
+      create: (context) => IsarService(),
+      child: MaterialApp(
+        title: 'Workout App',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: const ColorScheme.light(),
+        ),
+        home: const Home(),
+      ),
     );
   }
 }

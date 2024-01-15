@@ -89,8 +89,6 @@ void main() {
       final List<Exercise> queriedExercises = await isarService.exerciseService.findExercises();
 
       expect(queriedExercises, hasLength(2));
-
-      // TODO: Make this test more robust
       expect(queriedExercises[0].name, exercises[0].name);
       expect(queriedExercises[1].name, exercises[1].name);
     });
