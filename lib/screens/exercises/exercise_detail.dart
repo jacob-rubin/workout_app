@@ -28,6 +28,9 @@ class ExerciseDetail extends StatelessWidget {
           ...exercise.instructions.asMap().entries.map(
                 (entry) => Text('${entry.key + 1}. ${entry.value}'),
               ),
+          Image.asset(
+            "lib/database/data/360/${exercise.gifId}.gif",
+          )
         ],
       ),
     );
