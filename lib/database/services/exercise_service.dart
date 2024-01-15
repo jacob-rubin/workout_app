@@ -6,6 +6,10 @@ class ExerciseService {
 
   ExerciseService(this.isar);
 
+  String _capitalizeFirstLetterOfEachWord(String text) {
+    return text.split(' ').map((word) => word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : word).join(' ');
+  }
+
   /// @param exercise Exercise to be added
   /// @returns Id of the created Exercise
   Future<int> addExercise(Exercise exercise) async {
@@ -17,12 +21,17 @@ class ExerciseService {
   /// @param json JSON of Exercise to be added
   /// @returns Id of the created Exercise
   Future<int> addExerciseFromJSON(Map<String, dynamic> json) async {
+    List<String> secondaryMuscles = json['secondaryMuscles'].cast<String>();
+    for (int i = 0; i < secondaryMuscles.length; i++) {
+      secondaryMuscles[i] = _capitalizeFirstLetterOfEachWord(secondaryMuscles[i]);
+    }
+
     Exercise exercise = Exercise()
-      ..name = json['name']
-      ..bodyPart = json['bodyPart']
-      ..equipment = json['equipment']
-      ..targetMuscle = json['target']
-      ..secondaryMuscles = json['secondaryMuscles'].cast<String>()
+      ..name = _capitalizeFirstLetterOfEachWord(json['name'])
+      ..bodyPart = _capitalizeFirstLetterOfEachWord(json['bodyPart'])
+      ..equipment = _capitalizeFirstLetterOfEachWord(json['equipment'])
+      ..targetMuscle = _capitalizeFirstLetterOfEachWord(json['target'])
+      ..secondaryMuscles = secondaryMuscles
       ..instructions = json['instructions'].cast<String>()
       ..gifId = json['id'];
 
