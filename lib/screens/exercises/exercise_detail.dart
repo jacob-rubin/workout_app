@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/database/models/exercise.dart';
+import 'package:workout_app/screens/exercises/components/exercise_detail_list_item.dart';
 
 class ExerciseDetail extends StatelessWidget {
   const ExerciseDetail({
@@ -11,6 +12,14 @@ class ExerciseDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> listItems = [
+      ExerciseDetailListItemSingle(title: 'Body Part', description: exercise.bodyPart),
+      ExerciseDetailListItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
+      ExerciseDetailListItemSingle(title: 'Equipment', description: exercise.equipment),
+      ExerciseDetailListItemNumbered(title: 'Instructions', description: exercise.instructions),
+      Image.asset("lib/database/data/360/${exercise.gifId}.gif"),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(
@@ -18,20 +27,12 @@ class ExerciseDetail extends StatelessWidget {
           child: Text(exercise.name),
         ),
       ),
-      body: ListView(
-        children: [
-          Text(exercise.bodyPart),
-          ...exercise.secondaryMuscles.map(
-            (muscle) => Text(muscle),
-          ),
-          Text(exercise.equipment),
-          ...exercise.instructions.asMap().entries.map(
-                (entry) => Text('${entry.key + 1}. ${entry.value}'),
-              ),
-          Image.asset(
-            "lib/database/data/360/${exercise.gifId}.gif",
-          )
-        ],
+      body: ListView.separated(
+        separatorBuilder: (context, index) => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+        ),
+        itemCount: listItems.length,
+        itemBuilder: (context, index) => listItems[index],
       ),
     );
   }
