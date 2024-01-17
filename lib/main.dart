@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_app/database/services/isar_service.dart';
+import 'package:workout_app/providers/tab_provider.dart';
 import 'package:workout_app/screens/home/home.dart';
 
 void main() => runApp(const MyApp());
@@ -10,8 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider<IsarService>(
-      create: (context) => IsarService(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TabProvider()),
+        Provider(create: (context) => IsarService()),
+      ],
       child: MaterialApp(
         title: 'Workout App',
         theme: ThemeData(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/components/bottom_naviation.dart';
+import 'package:workout_app/components/bottom_navigation.dart';
 import 'package:workout_app/database/services/isar_service.dart';
-import 'package:workout_app/screens/exercises/exercises.dart';
+import 'package:workout_app/providers/tab_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,9 +14,9 @@ class Home extends StatelessWidget {
         future: Provider.of<IsarService>(context).init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return const Scaffold(
-              bottomNavigationBar: BottomNavigation(),
-              body: Exercises(),
+            return Scaffold(
+              bottomNavigationBar: const BottomNavigation(),
+              body: context.watch<TabProvider>().screen,
             );
           } else {
             return const Center(

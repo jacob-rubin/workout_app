@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workout_app/providers/tab_provider.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
@@ -6,6 +8,10 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
+      selectedIndex: Provider.of<TabProvider>(context).screenIndex,
+      onDestinationSelected: (index) {
+        Provider.of<TabProvider>(context, listen: false).screenIndex = index;
+      },
       destinations: const <Widget>[
         NavigationDestination(
           selectedIcon: Icon(Icons.menu_book),
