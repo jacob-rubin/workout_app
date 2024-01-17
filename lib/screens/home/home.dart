@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_app/components/bottom_naviation.dart';
 import 'package:workout_app/database/services/isar_service.dart';
 import 'package:workout_app/screens/exercises/exercises.dart';
 
@@ -13,7 +14,10 @@ class Home extends StatelessWidget {
         future: Provider.of<IsarService>(context).init(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return const Exercises();
+            return const Scaffold(
+              bottomNavigationBar: BottomNavigation(),
+              body: Exercises(),
+            );
           } else {
             return const Center(
               child: CircularProgressIndicator(),
