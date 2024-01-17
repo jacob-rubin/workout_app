@@ -13,16 +13,28 @@ class ExerciseList extends StatelessWidget {
       future: Provider.of<IsarService>(context).exerciseService.findExercises(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              return ExerciseListItem(
-                exercise: snapshot.data![index],
-              );
-            },
-            prototypeItem: const ListTile(
-              title: Text('Exercise Name'),
-            ),
+          return Column(
+            children: [
+              const TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Search',
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return ExerciseListItem(
+                      exercise: snapshot.data![index],
+                    );
+                  },
+                  prototypeItem: const ListTile(
+                    title: Text('Exercise Name'),
+                  ),
+                ),
+              ),
+            ],
           );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
