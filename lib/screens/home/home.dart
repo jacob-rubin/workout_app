@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<IsarService>(context).init(),
+      future: context.read<IsarService>().init(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(

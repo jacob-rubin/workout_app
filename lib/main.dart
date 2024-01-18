@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_app/database/services/isar_service.dart';
+import 'package:workout_app/providers/search_provider.dart';
 import 'package:workout_app/providers/tab_provider.dart';
 import 'package:workout_app/screens/home/home.dart';
 
@@ -13,8 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => TabProvider()),
         Provider(create: (context) => IsarService()),
+        ChangeNotifierProvider(create: (context) => TabProvider()),
+        ChangeNotifierProvider(create: (context) => SearchProvider()),
       ],
       child: MaterialApp(
         title: 'Workout App',

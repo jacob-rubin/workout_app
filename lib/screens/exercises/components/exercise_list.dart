@@ -11,7 +11,7 @@ class ExerciseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Exercise>>(
-      future: Provider.of<IsarService>(context).exerciseService.findExercises(),
+      future: context.read<IsarService>().exerciseService.findExercises(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(
