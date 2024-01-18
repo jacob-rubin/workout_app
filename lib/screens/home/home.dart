@@ -12,16 +12,16 @@ class Home extends StatelessWidget {
     return FutureBuilder(
       future: Provider.of<IsarService>(context).init(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Scaffold(
-            bottomNavigationBar: const BottomNavigation(),
-            body: context.watch<TabProvider>().screen,
-          );
-        } else {
+        if (snapshot.connectionState != ConnectionState.done) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
+
+        return Scaffold(
+          bottomNavigationBar: const BottomNavigation(),
+          body: context.watch<TabProvider>().screen,
+        );
       },
     );
   }

@@ -21,7 +21,7 @@ class ExerciseListItem extends StatelessWidget {
           maxLines: 1,
         ),
       ),
-      subtitle: Text(exercise.bodyPart),
+      subtitle: Text(exercise.targetMuscle),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         Navigator.push(

@@ -51,6 +51,10 @@ class ExerciseService {
     return isar.exercises.get(id);
   }
 
+  Future<List<String>> findAllTargetMuscles() async {
+    return isar.exercises.where().sortByTargetMuscle().distinctByTargetMuscle().targetMuscleProperty().findAll();
+  }
+
   /// @param exercise Exercise to be updated
   /// @throws Exception if the Exercise is not found
   Future<void> updateExercise(Exercise exercise) async {
