@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:workout_app/database/models/exercise.dart';
 import 'package:workout_app/database/services/isar_service.dart';
 import 'package:workout_app/screens/exercises/components/exercise_list_item.dart';
+import 'package:workout_app/screens/exercises/components/exercise_search_bar.dart';
 import 'package:workout_app/screens/exercises/components/target_muscle_list.dart';
 
 class ExerciseList extends StatelessWidget {
@@ -21,15 +22,7 @@ class ExerciseList extends StatelessWidget {
 
         return Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Search',
-                ),
-              ),
-            ),
+            const ExerciseSearchBar(),
             const TargetMuscleList(),
             Expanded(
               child: ListView.builder(

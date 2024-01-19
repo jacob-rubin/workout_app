@@ -12,7 +12,6 @@ class SearchProvider extends ChangeNotifier {
 
   int? get chipIndex => _chipIndex;
   set chipIndex(int? chipIndex) {
-    print('chipIndex: $chipIndex');
     _chipIndex = chipIndex;
     notifyListeners();
   }
