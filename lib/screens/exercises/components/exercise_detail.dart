@@ -14,6 +14,7 @@ class ExerciseDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> listItems = [
       ExerciseDetailListItemSingle(title: 'Body Part', description: exercise.bodyPart),
+      ExerciseDetailListItemSingle(title: 'Target Muscle', description: exercise.targetMuscle),
       ExerciseDetailListItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
       ExerciseDetailListItemSingle(title: 'Equipment', description: exercise.equipment),
       ExerciseDetailListItemNumbered(title: 'Instructions', description: exercise.instructions),

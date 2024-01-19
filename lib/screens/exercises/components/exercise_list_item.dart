@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/database/models/exercise.dart';
-import 'package:workout_app/screens/exercises/exercise_detail.dart';
+import 'package:workout_app/screens/exercises/components/exercise_detail.dart';
 
 class ExerciseListItem extends StatelessWidget {
   const ExerciseListItem({
