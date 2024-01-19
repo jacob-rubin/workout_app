@@ -40,13 +40,14 @@ class _TargetMuscleListState extends State<TargetMuscleList> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InputChip(
-                    selected: index == context.read<SearchProvider>().chipIndex,
+                    selected: index == context.read<SearchProvider>().targetMuscle.index,
                     onSelected: (bool selected) {
                       setState(() {
-                        if (index == context.read<SearchProvider>().chipIndex) {
-                          context.read<SearchProvider>().chipIndex = null;
+                        if (index == context.read<SearchProvider>().targetMuscle.index) {
+                          context.read<SearchProvider>().targetMuscle = TargetMuscle.reset();
                         } else {
-                          context.read<SearchProvider>().chipIndex = index;
+                          context.read<SearchProvider>().targetMuscle =
+                              TargetMuscle(name: snapshot.data![index], index: index);
                         }
                       });
                     },

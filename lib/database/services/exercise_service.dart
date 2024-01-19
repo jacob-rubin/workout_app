@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:workout_app/database/models/exercise.dart';
+import 'package:workout_app/providers/search_provider.dart';
 
 class ExerciseService {
   late final Isar isar;
@@ -7,7 +8,10 @@ class ExerciseService {
   ExerciseService(this.isar);
 
   String _capitalizeFirstLetterOfEachWord(String text) {
-    return text.split(' ').map((word) => word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : word).join(' ');
+    return text
+        .split(' ')
+        .map((word) => word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1)}' : word)
+        .join(' ');
   }
 
   /// @param exercise Exercise to be added
@@ -45,12 +49,24 @@ class ExerciseService {
     return isar.exercises.where().findAll();
   }
 
+  /// @param searchProvider SearchProvider to be used for searching
+  /// @returns List of exercises filtered by the SearchProvider
+  Future<List<Exercise>> findSearchedExercises(SearchProvider searchProvider) {
+    return isar.exercises
+        .filter()
+        .nameContains(searchProvider.searchText, caseSensitive: false)
+        .and()
+        .targetMuscleContains(searchProvider.targetMuscle.name, caseSensitive: false)
+        .findAll();
+  }
+
   /// @param id Id of Exercise to be found
   /// @returns Exercise with the given id
   Future<Exercise?> findExerciseById(int id) async {
     return isar.exercises.get(id);
   }
 
+  /// @returns List of Target Muscles
   Future<List<String>> findAllTargetMuscles() async {
     return isar.exercises.where().sortByTargetMuscle().distinctByTargetMuscle().targetMuscleProperty().findAll();
   }
