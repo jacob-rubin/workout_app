@@ -18,7 +18,7 @@ class ExerciseDetail extends StatelessWidget {
       ExerciseDetailListItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
       ExerciseDetailListItemSingle(title: 'Equipment', description: exercise.equipment),
       ExerciseDetailListItemNumbered(title: 'Instructions', description: exercise.instructions),
-      Image.asset("lib/database/data/360/${exercise.gifId}.gif"),
+      Image.asset("assets/360/${exercise.gifId}.gif"),
     ];
 
     return Scaffold(

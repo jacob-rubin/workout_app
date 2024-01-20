@@ -30,7 +30,7 @@ void main() {
   group('Dataloader', () {
     test('Dataloads the JSON of exercises into isar', () async {
       await loadExercises(mockIsar, isarService);
-      final List exerciseJSON = await jsonDecode(await File('lib/database/data/exerciseData.json').readAsString());
+      final List exerciseJSON = await jsonDecode(await File('assets/exerciseData.json').readAsString());
       final List<Exercise> dbExercises = await mockIsar.exercises.where().findAll();
 
       for (var i = 0; i < exerciseJSON.length; i++) {
