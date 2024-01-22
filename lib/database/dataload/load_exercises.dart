@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:isar/isar.dart';
+import 'package:flutter/services.dart';
 import 'package:workout_app/database/services/isar_service.dart';
 
 class ExerciseJSONElement {
@@ -33,8 +32,8 @@ class ExerciseJSONElement {
   }
 }
 
-Future<void> loadExercises(Isar isar, IsarService isarService) async {
-  final String dataString = await File('assets/exerciseData.json').readAsString();
+Future<void> loadExercises(IsarService isarService) async {
+  final String dataString = await rootBundle.loadString('assets/exerciseData.json');
   final List data = await jsonDecode(dataString);
 
   for (var exercise in data) {
