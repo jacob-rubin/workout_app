@@ -39,7 +39,7 @@ class IsarService {
       _liftService = LiftService(_isar);
 
       if (await _isar.exercises.count() == 0) {
-        await loadExercises(_isar, this);
+        await loadExercises(this);
       }
     } else {
       _isar = Isar.getInstance()!;

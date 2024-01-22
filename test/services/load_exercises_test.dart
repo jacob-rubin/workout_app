@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
 import 'package:workout_app/database/dataload/load_exercises.dart';
@@ -13,13 +14,11 @@ void main() {
   late IsarService isarService;
 
   setUpAll(() async {
+    WidgetsFlutterBinding.ensureInitialized();
     mockDir = Directory.systemTemp.createTempSync();
     await Isar.initializeIsarCore(download: true);
 
-    if (Isar.instanceNames.isEmpty) {
-      mockIsar = await Isar.open([ExerciseSchema], directory: mockDir.path);
-    }
-
+    mockIsar = await Isar.open([ExerciseSchema], directory: mockDir.path);
     isarService = IsarService.withIsar(mockIsar);
   });
 
@@ -29,7 +28,7 @@ void main() {
 
   group('Dataloader', () {
     test('Dataloads the JSON of exercises into isar', () async {
-      await loadExercises(mockIsar, isarService);
+      await loadExercises(isarService);
       final List exerciseJSON = await jsonDecode(await File('assets/exerciseData.json').readAsString());
       final List<Exercise> dbExercises = await mockIsar.exercises.where().findAll();
 

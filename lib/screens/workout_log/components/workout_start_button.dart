@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class WorkoutStartButton extends StatelessWidget {
   const WorkoutStartButton({super.key});
@@ -12,7 +13,8 @@ class WorkoutStartButton extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              print('Add Exercise');
+              Logger log = Logger();
+              log.d('Add Exercise');
             },
             child: const Text('Start Workout'),
           ),
