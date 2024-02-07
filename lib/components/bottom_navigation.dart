@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/providers/tab_provider.dart';
+import 'package:workout_app/database/providers/tab_provider.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});

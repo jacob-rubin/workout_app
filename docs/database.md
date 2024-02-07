@@ -18,21 +18,23 @@
 - The purpose is to define reused code between the services and the database
 
 ```dart
-  abstract class ExerciseServices {
-    Future<void> addExercise(Exercise exercise);
-    Future<void> deleteExercise(Exercise exercise);
-    Future<void> updateExercise(Exercise exercise);
-    Stream<Exercise> getExercises();
-    Future<Exercise> getExercise(String id);
-  }
+abstract class ExerciseServices {
+  Future<void> createExercise(Exercise exercise);
+  Future<void> deleteExercise(Exercise exercise);
+  Future<void> updateExercise(Exercise exercise);
+  Future<Exercise?> getExercise(int id);
+  Future<List<Exercise>> getExercises();
+}
 
-  abstract class WorkoutServices {
-    Future<void> addWorkout(Workout workout);
-    Future<void> deleteWorkout(Workout workout);
-    Future<void> updateWorkout(Workout workout);
-    Stream<Workout> getWorkouts();
-    Future<Workout> getWorkout(String id);
-  }
+abstract class WorkoutServices {
+  Future<void> createWorkout(Workout workout);
+  Future<void> updateWorkout(Workout workout);
+  Future<void> deleteWorkout(Workout workout);
+  Future<void> addLiftToWorkout(Workout workout, Lift lift);
+  Future<void> removeLiftFromWorkout(Workout workout, Lift lift);
+  Future<Workout?> getWorkout(int id);
+  Future<List<Workout>> getWorkouts();
+}
 ```
 
 ## Services
@@ -47,7 +49,7 @@
     Future<void> deleteExercise(Exercise exercise);
     Future<void> updateExercise(Exercise exercise);
     Stream<Exercise> getExercises();
-    Future<Exercise> getExercise(String id);
+    Future<Exercise?> getExercise(String id);
   }
 
   class WorkoutService implements WorkoutServices {
@@ -59,7 +61,7 @@
     Future<void> deleteWorkout(Workout workout);
     Future<void> updateWorkout(Workout workout);
     Stream<Workout> getWorkouts();
-    Future<Workout> getWorkout(String id);
+    Future<Workout?> getWorkout(String id);
   }
 ```
 

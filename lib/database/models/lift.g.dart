@@ -645,9 +645,10 @@ Set _setDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Set();
-  object.reps = reader.readLong(offsets[0]);
-  object.weight = reader.readLong(offsets[1]);
+  final object = Set(
+    reps: reader.readLongOrNull(offsets[0]),
+    weight: reader.readLongOrNull(offsets[1]),
+  );
   return object;
 }
 
@@ -659,16 +660,32 @@ P _setDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
 extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
-  QueryBuilder<Set, Set, QAfterFilterCondition> repsEqualTo(int value) {
+  QueryBuilder<Set, Set, QAfterFilterCondition> repsIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'reps',
+      ));
+    });
+  }
+
+  QueryBuilder<Set, Set, QAfterFilterCondition> repsIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'reps',
+      ));
+    });
+  }
+
+  QueryBuilder<Set, Set, QAfterFilterCondition> repsEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'reps',
@@ -678,7 +695,7 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> repsGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -691,7 +708,7 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> repsLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -704,8 +721,8 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> repsBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -720,7 +737,23 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Set, Set, QAfterFilterCondition> weightEqualTo(int value) {
+  QueryBuilder<Set, Set, QAfterFilterCondition> weightIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'weight',
+      ));
+    });
+  }
+
+  QueryBuilder<Set, Set, QAfterFilterCondition> weightIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'weight',
+      ));
+    });
+  }
+
+  QueryBuilder<Set, Set, QAfterFilterCondition> weightEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'weight',
@@ -730,7 +763,7 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> weightGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -743,7 +776,7 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> weightLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -756,8 +789,8 @@ extension SetQueryFilter on QueryBuilder<Set, Set, QFilterCondition> {
   }
 
   QueryBuilder<Set, Set, QAfterFilterCondition> weightBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

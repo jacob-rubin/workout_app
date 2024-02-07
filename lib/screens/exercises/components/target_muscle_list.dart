@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/database/services/isar_service.dart';
-import 'package:workout_app/providers/search_provider.dart';
+import 'package:workout_app/database/providers/search_provider.dart';
 
 class TargetMuscleList extends StatefulWidget {
   const TargetMuscleList({super.key});
@@ -17,7 +16,8 @@ class _TargetMuscleListState extends State<TargetMuscleList> {
   @override
   void initState() {
     super.initState();
-    _targetMuscles = context.read<IsarService>().exerciseService.findAllTargetMuscles();
+    // _targetMuscles = context.read<IsarService>().exerciseService.findAllTargetMuscles();
+    _targetMuscles = Future<List<String>>.value(['Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Core']);
   }
 
   @override

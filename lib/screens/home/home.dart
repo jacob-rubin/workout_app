@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_app/components/bottom_navigation.dart';
-import 'package:workout_app/database/services/isar_service.dart';
-import 'package:workout_app/providers/tab_provider.dart';
+import 'package:workout_app/database/providers/database_provider.dart';
+import 'package:workout_app/database/providers/tab_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<IsarService>().init(),
+      future: context.read<DatabaseProvider>().init(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(

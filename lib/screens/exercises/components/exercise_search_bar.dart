@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/providers/search_provider.dart';
+import 'package:workout_app/database/providers/search_provider.dart';
 
 class ExerciseSearchBar extends StatefulWidget {
   const ExerciseSearchBar({super.key});

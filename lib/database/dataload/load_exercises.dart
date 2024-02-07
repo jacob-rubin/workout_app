@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:workout_app/database/services/isar_service.dart';
+import 'package:workout_app/database/models/exercise.dart';
+import 'package:workout_app/database/services/exercise_service.dart';
 
 class ExerciseJSONElement {
   late String bodyPart;
@@ -32,11 +33,21 @@ class ExerciseJSONElement {
   }
 }
 
-Future<void> loadExercises(IsarService isarService) async {
+Future<void> loadExercises(ExerciseService exerciseService) async {
   final String dataString = await rootBundle.loadString('assets/exerciseData.json');
   final List data = await jsonDecode(dataString);
 
-  for (var exercise in data) {
-    await isarService.exerciseService.addExerciseFromJSON(exercise);
+  for (var element in data) {
+    ExerciseJSONElement exerciseJSON = ExerciseJSONElement.fromJson(element);
+    Exercise exercise = Exercise()
+      ..name = exerciseJSON.name
+      ..bodyPart = exerciseJSON.bodyPart
+      ..equipment = exerciseJSON.equipment
+      ..targetMuscle = exerciseJSON.target
+      ..secondaryMuscles = exerciseJSON.secondaryMuscles
+      ..instructions = exerciseJSON.instructions
+      ..gifId = exerciseJSON.id;
+
+    await exerciseService.createExercise(exercise);
   }
 }

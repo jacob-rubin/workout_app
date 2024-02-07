@@ -1,61 +1,49 @@
 import 'package:isar/isar.dart';
 import 'package:workout_app/database/models/lift.dart';
+import 'package:workout_app/database/services/abstractions.dart';
 
-class LiftService {
-  late final Isar isar;
+class LiftService implements LiftServices {
+  late final Isar _db;
 
-  LiftService(this.isar);
+  LiftService(this._db);
 
-  /// Adds a lift to the database.
-  /// @param Lift The lift to add.
-  /// @return The id of the lift added.
-  Future<int> addLift(Lift lift) async {
-    return await isar.writeTxn(() async {
-      return await isar.lifts.put(lift);
+  /// @param lift - Lift to be added
+  @override
+  Future<void> createLift(Lift lift) async {
+    await _db.writeTxn(() async {
+      await _db.lifts.put(lift);
+      await lift.exercise.save();
     });
   }
 
-  /// Gets all lifts from the database.
-  /// @return A list of all lifts.
-  Future<List<Lift>> findLifts() async {
-    return await isar.lifts.where().findAll();
-  }
-
-  /// Gets a lift from the database by id.
-  /// @param id The id of the lift to get.
-  /// @return The lift with the given id.
-  /// @throws Exception if the lift is not found.
-  Future<Lift?> findLiftById(int id) async {
-    return await isar.lifts.get(id);
-  }
-
-  /// Updates a lift in the database.
-  /// @param lift The lift to update.
-  /// @throws Exception if the lift is not found.
+  /// @param lift - Lift to be updated
+  @override
   Future<void> updateLift(Lift lift) async {
-    final Lift? queriedLift = await isar.lifts.get(lift.id);
-
-    if (queriedLift == null) {
-      throw Exception('Lift not found');
-    }
-
-    await isar.writeTxn(() async {
-      await isar.lifts.put(lift);
+    await _db.writeTxn(() async {
+      await _db.lifts.put(lift);
+      await lift.exercise.load();
     });
   }
 
-  /// Deletes a lift from the database.
-  /// @param id The id of the lift to delete.
-  /// @throws Exception if the lift is not found.
-  Future<void> deleteLift(int id) async {
-    final Lift? deletedLift = await isar.lifts.get(id);
-
-    if (deletedLift == null) {
-      throw Exception('Lift not found');
-    }
-
-    return await isar.writeTxn(() async {
-      await isar.lifts.delete(id);
+  /// @param lift - Lift to be deleted
+  @override
+  Future<void> deleteLift(Lift lift) async {
+    await _db.writeTxn(() async {
+      await _db.lifts.delete(lift.id);
+      await lift.exercise.load();
     });
+  }
+
+  /// @param id - Id of Lift to be found
+  /// @returns Lift with the given id
+  @override
+  Future<Lift?> getLift(int id) async {
+    return await _db.lifts.get(id);
+  }
+
+  /// @returns List of Lifts
+  @override
+  Future<List<Lift>> getLifts() async {
+    return await _db.lifts.where().findAll();
   }
 }
