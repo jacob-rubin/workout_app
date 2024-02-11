@@ -1,5 +1,4 @@
 import 'package:isar/isar.dart';
-import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
 import 'package:workout_app/database/services/abstractions.dart';
 
@@ -30,28 +29,6 @@ class WorkoutService implements WorkoutServices {
   Future<void> deleteWorkout(Workout workout) async {
     await _db.writeTxn(() async {
       await _db.workouts.delete(workout.id);
-    });
-  }
-
-  /// @param workout - The workout to add the lift to.
-  /// @param lift - The lift to add to the workout.
-  @override
-  Future<void> addLiftToWorkout(Workout workout, Lift lift) async {
-    final Workout newWorkout = workout..lifts.add(lift);
-
-    await _db.writeTxn(() async {
-      await _db.workouts.put(newWorkout);
-    });
-  }
-
-  /// @param workout - The workout to remove the lift from.
-  /// @param lift - The lift to remove from the workout.
-  @override
-  Future<void> removeLiftFromWorkout(Workout workout, Lift lift) async {
-    final Workout newWorkout = workout..lifts.remove(lift);
-
-    await _db.writeTxn(() async {
-      await _db.workouts.put(newWorkout);
     });
   }
 

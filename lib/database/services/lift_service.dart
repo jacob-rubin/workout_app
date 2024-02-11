@@ -21,7 +21,7 @@ class LiftService implements LiftServices {
   Future<void> updateLift(Lift lift) async {
     await _db.writeTxn(() async {
       await _db.lifts.put(lift);
-      await lift.exercise.load();
+      await lift.exercise.save();
     });
   }
 
@@ -30,7 +30,6 @@ class LiftService implements LiftServices {
   Future<void> deleteLift(Lift lift) async {
     await _db.writeTxn(() async {
       await _db.lifts.delete(lift.id);
-      await lift.exercise.load();
     });
   }
 

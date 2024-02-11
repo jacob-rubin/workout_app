@@ -30,6 +30,13 @@ List<Exercise> mockExercises = [
     ..gifId = '002'
 ];
 
+Lift mockLift = Lift()
+  ..exercise.value = mockExercises[0]
+  ..sets = [
+    Set(reps: 10, weight: 100),
+    Set(reps: 12, weight: 90),
+  ];
+
 List<Lift> mockLifts = [
   Lift()
     ..exercise.value = mockExercises[0]

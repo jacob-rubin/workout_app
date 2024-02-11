@@ -22,8 +22,6 @@ abstract class WorkoutServices {
   Future<void> createWorkout(Workout workout);
   Future<void> updateWorkout(Workout workout);
   Future<void> deleteWorkout(Workout workout);
-  Future<void> addLiftToWorkout(Workout workout, Lift lift);
-  Future<void> removeLiftFromWorkout(Workout workout, Lift lift);
   Future<Workout?> getWorkout(int id);
   Future<List<Workout>> getWorkouts();
 }

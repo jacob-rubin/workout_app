@@ -33,7 +33,7 @@ class DatabaseProvider extends ChangeNotifier implements ExerciseServices, LiftS
     _liftService = LiftService(_db);
 
     if (await _db.getSize() == 0) {
-      loadExercises(_exerciseService);
+      await loadExercises(_exerciseService);
     }
   }
 
@@ -84,18 +84,6 @@ class DatabaseProvider extends ChangeNotifier implements ExerciseServices, LiftS
   @override
   Future<void> deleteWorkout(Workout workout) async {
     await _workoutService.deleteWorkout(workout);
-    notifyListeners();
-  }
-
-  @override
-  Future<void> addLiftToWorkout(Workout workout, Lift lift) async {
-    await _workoutService.addLiftToWorkout(workout, lift);
-    notifyListeners();
-  }
-
-  @override
-  Future<void> removeLiftFromWorkout(Workout workout, Lift lift) async {
-    await _workoutService.removeLiftFromWorkout(workout, lift);
     notifyListeners();
   }
 
