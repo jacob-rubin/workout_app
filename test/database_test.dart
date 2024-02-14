@@ -79,7 +79,7 @@ void main() {
 
     test('Creates an exercise', () async {
       await db.createExercise(mockExercise);
-      final Exercise? queriedExercise = await mockIsar.exercises.get(3);
+      final Exercise? queriedExercise = await mockIsar.exercises.get(1);
 
       expect(queriedExercise, isNotNull);
       expect(queriedExercise!.name, equals(mockExercise.name));
@@ -100,14 +100,14 @@ void main() {
     });
 
     test('Finds an exercise by ID', () async {
-      final Exercise? queriedExercise = await db.getExercise(1);
+      final Exercise? queriedExercise = await db.getExercise(2);
 
       expect(queriedExercise, isNotNull);
       expect(queriedExercise!.name, mockExercises[0].name);
     });
 
     test('Returns null if exercise is not found', () async {
-      final Exercise? queriedExercise = await db.getExercise(3);
+      final Exercise? queriedExercise = await db.getExercise(4);
 
       expect(queriedExercise, isNull);
     });
@@ -116,7 +116,7 @@ void main() {
       final Exercise newExercise = mockExercises[0]..name = 'Bench Press Updated';
 
       await db.updateExercise(newExercise);
-      final Exercise? queriedExercise = await mockIsar.exercises.get(1);
+      final Exercise? queriedExercise = await mockIsar.exercises.get(2);
 
       expect(queriedExercise, isNotNull);
       expect(queriedExercise!.name, newExercise.name);
@@ -126,7 +126,7 @@ void main() {
       await db.deleteExercise(mockExercises[0]);
 
       final List<Exercise> exerciseList = await mockIsar.exercises.where().findAll();
-      final Exercise? deletedExercise = await mockIsar.exercises.get(1);
+      final Exercise? deletedExercise = await mockIsar.exercises.get(2);
 
       expect(exerciseList, hasLength(1));
       expect(exerciseList[0].name, mockExercises[1].name);
@@ -134,7 +134,7 @@ void main() {
     });
   });
 
-  group('Lift service', () {
+  group('Lift Service', () {
     setUp(() async {
       await mockIsar.writeTxn(() async {
         await mockIsar.exercises.clear();
@@ -148,6 +148,14 @@ void main() {
     });
 
     test('Gets a single lift', () async {
+      Lift mockLift = Lift()
+        ..id = 1
+        ..exercise.value = mockExercises[0]
+        ..sets = [
+          Set(reps: 10, weight: 100),
+          Set(reps: 12, weight: 90),
+        ];
+
       await mockIsar.writeTxn(() async {
         await mockIsar.lifts.put(mockLift);
         await mockLift.exercise.save();
@@ -185,15 +193,12 @@ void main() {
     });
 
     test('Creates a lift', () async {
-      await printIsarInstances('Create Lift');
       await db.createLift(Lift()
         ..exercise.value = mockExercises[0]
         ..sets = [
           Set(reps: 10, weight: 100),
           Set(reps: 12, weight: 90),
         ]);
-
-      await printIsarInstances('Create Lift');
 
       final Lift? queriedLift = await mockIsar.lifts.get(1);
 
@@ -207,24 +212,19 @@ void main() {
     });
 
     test('Creates multiple lifts with the same exercise', () async {
-      await db.createLift(
-        Lift()
-          ..exercise.value = mockExercises[0]
-          ..sets = [
-            Set(reps: 10, weight: 100),
-            Set(reps: 12, weight: 90),
-          ],
-      );
-      await db.createLift(
-        Lift()
-          ..exercise.value = mockExercises[0]
-          ..sets = [
-            Set(reps: 5, weight: 50),
-            Set(reps: 6, weight: 60),
-          ],
-      );
+      await db.createLift(Lift()
+        ..exercise.value = mockExercises[0]
+        ..sets = [
+          Set(reps: 10, weight: 100),
+          Set(reps: 12, weight: 90),
+        ]);
 
-      await printIsarInstances('Create Multiple Lifts with Same Exercise');
+      await db.createLift(Lift()
+        ..exercise.value = mockExercises[0]
+        ..sets = [
+          Set(reps: 1, weight: 500),
+          Set(reps: 1, weight: 500),
+        ]);
 
       final List<Lift> queriedLifts = await mockIsar.lifts.where().findAll();
 
@@ -236,16 +236,17 @@ void main() {
     });
 
     test('Updates a lift with a new set', () async {
-      await db.createLift(Lift()
-        ..id = 1
-        ..exercise.value = mockExercises[0]
-        ..sets = [
-          Set(reps: 10, weight: 100),
-          Set(reps: 12, weight: 90),
-        ]);
+      await db.createLift(
+        Lift()
+          ..exercise.value = mockExercises[0]
+          ..sets = [
+            Set(reps: 10, weight: 100),
+            Set(reps: 12, weight: 90),
+          ],
+      );
+      int liftId = await db.getLifts().then((value) => value[0].id);
       await db.updateLift(Lift()
-        ..id = 1
-        ..exercise.value = mockExercises[0]
+        ..id = liftId
         ..sets = [
           Set(reps: 10, weight: 100),
           Set(reps: 12, weight: 90),
@@ -263,20 +264,24 @@ void main() {
     });
 
     test('Updates a lift with a new exercise', () async {
-      await db.createLift(Lift()
-        ..id = 1
-        ..exercise.value = mockExercises[0]
-        ..sets = [
-          Set(reps: 10, weight: 100),
-          Set(reps: 12, weight: 90),
-        ]);
-      await db.updateLift(Lift()
-        ..id = 1
-        ..exercise.value = mockExercises[1]
-        ..sets = [
-          Set(reps: 10, weight: 100),
-          Set(reps: 12, weight: 90),
-        ]);
+      await db.createLift(
+        Lift()
+          ..exercise.value = mockExercises[0]
+          ..sets = [
+            Set(reps: 10, weight: 100),
+            Set(reps: 12, weight: 90),
+          ],
+      );
+      int liftId = await db.getLifts().then((value) => value[0].id);
+      await db.updateLift(
+        Lift()
+          ..id = liftId
+          ..exercise.value = mockExercises[1]
+          ..sets = [
+            Set(reps: 10, weight: 100),
+            Set(reps: 12, weight: 90),
+          ],
+      );
 
       final Lift? queriedLift = await mockIsar.lifts.get(1);
 
@@ -297,7 +302,14 @@ void main() {
             Set(reps: 12, weight: 90),
           ],
       );
-      await db.deleteLift(
+      await db.deleteLift(Lift()..id = 1);
+
+      expect(await mockIsar.lifts.where().findAll(), isEmpty);
+      expect(await mockIsar.exercises.where().findAll(), hasLength(2));
+    });
+
+    test('Gets a lift', () async {
+      await db.createLift(
         Lift()
           ..id = 1
           ..exercise.value = mockExercises[0]
@@ -307,10 +319,74 @@ void main() {
           ],
       );
 
-      expect(await mockIsar.lifts.where().findAll(), isEmpty);
-      expect(await mockIsar.exercises.where().findAll(), hasLength(2));
+      final Lift? queriedLift = await db.getLift(1);
+
+      expect(queriedLift, isNotNull);
+      expect(queriedLift!.exercise.value, isNotNull);
+      expect(queriedLift.exercise.value!.name, mockExercises[0].name);
+    });
+
+    test('Gets all lifts', () async {
+      await db.createLift(
+        Lift()
+          ..id = 1
+          ..exercise.value = mockExercises[0]
+          ..sets = [
+            Set(reps: 10, weight: 100),
+            Set(reps: 12, weight: 90),
+          ],
+      );
+      await db.createLift(
+        Lift()
+          ..id = 2
+          ..exercise.value = mockExercises[1]
+          ..sets = [
+            Set(reps: 10, weight: 100),
+            Set(reps: 12, weight: 90),
+          ],
+      );
+
+      final List<Lift> queriedLifts = await db.getLifts();
+
+      expect(queriedLifts, hasLength(2));
+      expect(queriedLifts[0].exercise.value, isNotNull);
+      expect(queriedLifts[0].exercise.value!.name, mockExercises[0].name);
+      expect(queriedLifts[1].exercise.value, isNotNull);
+      expect(queriedLifts[1].exercise.value!.name, mockExercises[1].name);
     });
   });
 
-  group('workout service', () {});
+  group('Workout Service', () {
+    setUp(() async {
+      await mockIsar.writeTxn(() async {
+        await mockIsar.exercises.clear();
+        await mockIsar.lifts.clear();
+        await mockIsar.exercises.putAll(mockExercises);
+        await mockIsar.lifts.putAll(mockLifts);
+      });
+
+      await printIsarInstances('Workout Service - Setup');
+    });
+
+    test('Creates a workout', () async {
+      await db.createWorkout(
+        Workout()
+          ..date = DateTime(2021, 1, 1)
+          ..rating = 5
+          ..lifts.addAll(mockLifts),
+      );
+
+      final Workout? queriedWorkout = await db.getWorkout(1);
+
+      await printIsarInstances('Workout Service - Creates a workout');
+
+      expect(queriedWorkout!, isNotNull);
+      expect(queriedWorkout.date, DateTime(2021, 1, 1));
+      expect(queriedWorkout.lifts, hasLength(3));
+      expect(queriedWorkout.lifts.toList()[0].exercise.value, isNotNull);
+      expect(queriedWorkout.lifts.toList()[0].exercise.value!.name, mockExercises[0].name);
+      expect(queriedWorkout.lifts.toList()[1].exercise.value, isNotNull);
+      expect(queriedWorkout.lifts.toList()[1].exercise.value!.name, mockExercises[1].name);
+    });
+  });
 }

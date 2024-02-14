@@ -16,8 +16,15 @@ class ExerciseService implements ExerciseServices {
   }
 
   /// @param exercise - Exercise to be updated
+  /// @throws Exception if Exercise not found
   @override
   Future<void> updateExercise(Exercise exercise) async {
+    Exercise? exerciseToUpdate = await getExercise(exercise.id);
+
+    if (exerciseToUpdate == null) {
+      throw Exception('Exercise not found');
+    }
+
     await _db.writeTxn(() async {
       await _db.exercises.put(exercise);
     });

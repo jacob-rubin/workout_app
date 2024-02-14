@@ -12,7 +12,7 @@ class TargetMuscle {
   }
 }
 
-class SearchProvider extends ChangeNotifier {
+class ExerciseSearchProvider extends ChangeNotifier {
   String _searchText = '';
   TargetMuscle _targetMuscle = TargetMuscle(
     name: '',

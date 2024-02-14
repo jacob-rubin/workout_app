@@ -3,28 +3,37 @@ import 'package:workout_app/screens/exercises/exercises.dart';
 import 'package:workout_app/screens/workout_history/workout_history.dart';
 import 'package:workout_app/screens/workout_log/workout_log.dart';
 
-// TODO: Fix this coupling. Perhaps convert to object?
+class Screen {
+  final Widget _screen;
+  final int _index;
+
+  Screen(this._screen, this._index);
+
+  Widget get screen => _screen;
+  int get index => _index;
+}
+
 class TabProvider extends ChangeNotifier {
-  var screenList = <Widget>[
-    const Exercises(),
-    const WorkoutLog(),
-    const WorkoutHistory(),
+  List<Screen> screens = [
+    Screen(const Exercises(), 0),
+    Screen(const WorkoutLog(), 1),
+    Screen(const WorkoutHistory(), 2),
   ];
 
-  late int _screenIndex = 0;
-  late Widget _screen = const Exercises();
+  late int _index = screens[0].index;
+  late Widget _screen = screens[0].screen;
 
-  int get screenIndex => _screenIndex;
-  set screenIndex(int screen) {
-    _screenIndex = screen;
-    _screen = screenList[_screenIndex];
+  int get index => _index;
+  set index(int index) {
+    _index = index;
+    _screen = screens[index].screen;
     notifyListeners();
   }
 
   Widget get screen => _screen;
   set screen(Widget screen) {
     _screen = screen;
-    _screenIndex = screenList.indexOf(_screen);
+    _index = screens.indexWhere((element) => element.screen == screen);
     notifyListeners();
   }
 }

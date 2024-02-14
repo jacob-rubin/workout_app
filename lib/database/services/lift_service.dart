@@ -17,8 +17,15 @@ class LiftService implements LiftServices {
   }
 
   /// @param lift - Lift to be updated
+  /// @throws Exception if Lift not found
   @override
   Future<void> updateLift(Lift lift) async {
+    Lift? liftToUpdate = await getLift(lift.id);
+
+    if (liftToUpdate == null) {
+      throw Exception('Lift not found');
+    }
+
     await _db.writeTxn(() async {
       await _db.lifts.put(lift);
       await lift.exercise.save();

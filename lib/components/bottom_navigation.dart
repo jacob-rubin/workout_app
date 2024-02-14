@@ -8,11 +8,11 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      selectedIndex: Provider.of<TabProvider>(context).screenIndex,
+      selectedIndex: context.watch<TabProvider>().index,
       onDestinationSelected: (index) {
-        Provider.of<TabProvider>(context, listen: false).screenIndex = index;
+        context.read<TabProvider>().index = index;
       },
-      destinations: const <Widget>[
+      destinations: const <NavigationDestination>[
         NavigationDestination(
           selectedIcon: Icon(Icons.menu_book),
           icon: Icon(Icons.menu_book_outlined),

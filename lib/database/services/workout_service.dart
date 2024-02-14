@@ -13,14 +13,32 @@ class WorkoutService implements WorkoutServices {
   Future<void> createWorkout(Workout workout) async {
     await _db.writeTxn(() async {
       await _db.workouts.put(workout);
+      await workout.lifts.save();
+
+      for (var lift in workout.lifts) {
+        await lift.exercise.save();
+      }
     });
   }
 
   /// @param workout - The workout to update.
+  /// @throws Exception if workout not found.
   @override
   Future<void> updateWorkout(Workout workout) async {
+    Workout? workoutToUpdate = await getWorkout(workout.id);
+
+    if (workoutToUpdate == null) {
+      throw Exception('Workout not found');
+    }
+
     await _db.writeTxn(() async {
       await _db.workouts.put(workout);
+      await workout.lifts.save();
+
+      // save the exercises in each lift
+      for (var lift in workout.lifts) {
+        await lift.exercise.save();
+      }
     });
   }
 

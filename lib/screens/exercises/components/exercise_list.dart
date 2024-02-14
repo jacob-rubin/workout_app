@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:workout_app/database/models/exercise.dart';
+import 'package:workout_app/database/providers/database_provider.dart';
 import 'package:workout_app/screens/exercises/components/exercise_list_item.dart';
 
 class ExerciseList extends StatelessWidget {
@@ -8,7 +10,7 @@ class ExerciseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Exercise>>(
-      future: Future<List<Exercise>>.value([]),
+      future: context.read<DatabaseProvider>().getExercises(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(

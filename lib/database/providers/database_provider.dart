@@ -25,7 +25,7 @@ class DatabaseProvider extends ChangeNotifier implements ExerciseServices, LiftS
     Directory dir = await getApplicationDocumentsDirectory();
     _db = Isar.getInstance() ??
         await Isar.open(
-          [ExerciseSchema, WorkoutSchema],
+          [ExerciseSchema, LiftSchema, WorkoutSchema],
           directory: dir.path,
         );
     _exerciseService = ExerciseService(_db);

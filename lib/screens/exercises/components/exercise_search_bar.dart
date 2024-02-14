@@ -19,7 +19,7 @@ class _ExerciseSearchBarState extends State<ExerciseSearchBar> {
   }
 
   void updateSearch() {
-    context.read<SearchProvider>().searchText = _controller.text;
+    context.read<ExerciseSearchProvider>().searchText = _controller.text;
   }
 
   @override
