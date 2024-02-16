@@ -15,6 +15,7 @@ class WorkoutService implements WorkoutServices {
       await _db.workouts.put(workout);
       await workout.lifts.save();
 
+      // save the exercises in each lift
       for (var lift in workout.lifts) {
         await lift.exercise.save();
       }
@@ -34,11 +35,6 @@ class WorkoutService implements WorkoutServices {
     await _db.writeTxn(() async {
       await _db.workouts.put(workout);
       await workout.lifts.save();
-
-      // save the exercises in each lift
-      for (var lift in workout.lifts) {
-        await lift.exercise.save();
-      }
     });
   }
 
