@@ -1,90 +1,61 @@
 import 'package:isar/isar.dart';
-import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
+import 'package:workout_app/database/services/abstractions.dart';
 
-class WorkoutService {
-  late final Isar isar;
+class WorkoutService implements WorkoutServices {
+  late final Isar _db;
 
-  WorkoutService(this.isar);
+  WorkoutService(this._db);
 
-  /// Adds a new workout to the database.
   /// @param workout The workout to add.
   /// @return The id of the workout added.
-  Future<int> addWorkout(Workout workout) async {
-    return await isar.writeTxn(() async {
-      return await isar.workouts.put(workout);
+  @override
+  Future<void> createWorkout(Workout workout) async {
+    await _db.writeTxn(() async {
+      await _db.workouts.put(workout);
+      await workout.lifts.save();
+
+      // save the exercises in each lift
+      for (var lift in workout.lifts) {
+        await lift.exercise.save();
+      }
     });
   }
 
-  /// Gets all workouts from the database.
-  /// @return A list of all workouts.
-  Future<List<Workout>> findWorkouts() async {
-    return await isar.workouts.where().findAll();
-  }
-
-  /// Gets a workout from the database by id.
-  /// @param id The id of the workout to get.
-  Future<Workout?> findWorkoutById(int id) async {
-    return await isar.workouts.get(id);
-  }
-
-  // Add lift to workout
-  Future<void> addLiftToWorkout(int workoutId, Lift lift) async {
-    final Workout? workout = await findWorkoutById(workoutId);
-
-    if (workout == null) {
-      throw Exception('Workout not found');
-    }
-
-    final newWorkout = workout..lifts.add(lift);
-
-    await isar.writeTxn(() async {
-      await isar.workouts.put(newWorkout);
-    });
-  }
-
-  // Remove lift from workout
-  Future<void> removeLiftFromWorkout(int workoutId, Lift lift) async {
-    final Workout? workout = await findWorkoutById(workoutId);
-
-    if (workout == null) {
-      throw Exception('Workout not found');
-    }
-
-    final newWorkout = workout..lifts.remove(lift);
-
-    await isar.writeTxn(() async {
-      await isar.workouts.put(newWorkout);
-    });
-  }
-
-  /// Updates a workout in the database.
-  /// @param workout The workout to update.
-  /// @throws Exception if the workout is not found.
+  /// @param workout - The workout to update.
+  /// @throws Exception if workout not found.
+  @override
   Future<void> updateWorkout(Workout workout) async {
-    final queriedWorkout = await isar.workouts.get(workout.id);
+    Workout? workoutToUpdate = await getWorkout(workout.id);
 
-    if (queriedWorkout == null) {
+    if (workoutToUpdate == null) {
       throw Exception('Workout not found');
     }
 
-    await isar.writeTxn(() async {
-      await isar.workouts.put(workout);
+    await _db.writeTxn(() async {
+      await _db.workouts.put(workout);
+      await workout.lifts.save();
     });
   }
 
-  /// Deletes a workout from the database.
-  /// @param id The id of the workout to delete.
-  /// @throws Exception if the workout is not found.
-  Future<void> deleteWorkout(int id) async {
-    final deletedWorkout = await isar.workouts.get(id);
-
-    if (deletedWorkout == null) {
-      throw Exception('Workout not found');
-    }
-
-    await isar.writeTxn(() async {
-      await isar.workouts.delete(id);
+  /// @param workout - The workout to delete.
+  @override
+  Future<void> deleteWorkout(Workout workout) async {
+    await _db.writeTxn(() async {
+      await _db.workouts.delete(workout.id);
     });
+  }
+
+  /// @param id - The id of the workout to get.
+  /// @return The workout with the given id.
+  @override
+  Future<Workout?> getWorkout(int id) async {
+    return await _db.workouts.get(id);
+  }
+
+  /// @return A list of all workouts.
+  @override
+  Future<List<Workout>> getWorkouts() async {
+    return await _db.workouts.where().findAll();
   }
 }
