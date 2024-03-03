@@ -33,14 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  auto_route:
-    dependency: "direct main"
-    description:
-      name: auto_route
-      sha256: "82f8df1d177416bc6b7a449127d0270ff1f0f633a91f2ceb7a85d4f07c3affa1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.8.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -251,11 +243,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -272,14 +259,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  go_router:
-    dependency: "direct main"
-    description:
-      name: go_router
-      sha256: "07ee2436909f749d606f53521dc1725dd738dc5196e5ff815bc254253c594075"
-      url: "https://pub.dev"
-    source: hosted
-    version: "13.1.0"
   graphs:
     dependency: transitive
     description:
@@ -544,6 +523,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  searchable_listview:
+    dependency: "direct main"
+    description:
+      name: searchable_listview
+      sha256: fad781a412d1fec251c7a66e4aca49e49ab8b7104bda733b476d4b5c81891bea
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.1"
   shelf:
     dependency: transitive
     description:
@@ -783,4 +770,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.2.0 <4.0.0"
-  flutter: ">=3.13.0"
+  flutter: ">=3.10.0"
