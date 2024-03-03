@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/exercises/components/exercise_list.dart';
+import 'package:workout_app/components/exerciseList/exercise_list.dart';
 
 class WorkoutLog extends StatelessWidget {
   const WorkoutLog({super.key});
@@ -19,7 +19,10 @@ class WorkoutLog extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return const ExerciseList();
+                return const Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: RefactoredExerciseList.compact(),
+                );
               },
             );
           },
