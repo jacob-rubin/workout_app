@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/components/exerciseList/exercise_list.dart';
+import 'package:workout_app/screens/exercises/exerciseList/exercise_list.dart';
 
 class Exercises extends StatelessWidget {
   const Exercises({super.key});

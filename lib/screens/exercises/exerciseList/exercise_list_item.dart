@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/components/exerciseList/exercise_detail.dart';
 import 'package:workout_app/database/enums/enums.dart';
 import 'package:workout_app/database/models/exercise.dart';
+import 'package:workout_app/screens/exercises/exerciseList/exercise_detail.dart';
 
 class ExerciseListItem extends StatelessWidget {
   const ExerciseListItem({super.key, required this.exercise, required this.type});

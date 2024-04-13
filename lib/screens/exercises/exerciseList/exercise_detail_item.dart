@@ -3,8 +3,8 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 
 // TODO: Remove all this duplicate code
-class ExerciseDetailListItemSingle extends StatelessWidget {
-  const ExerciseDetailListItemSingle({super.key, required this.title, required this.description});
+class ExerciseDetailItemSingle extends StatelessWidget {
+  const ExerciseDetailItemSingle({super.key, required this.title, required this.description});
 
   final String title;
   final String description;
@@ -32,8 +32,8 @@ class ExerciseDetailListItemSingle extends StatelessWidget {
   }
 }
 
-class ExerciseDetailListItemMulti extends StatelessWidget {
-  const ExerciseDetailListItemMulti({super.key, required this.title, required this.description});
+class ExerciseDetailItemMulti extends StatelessWidget {
+  const ExerciseDetailItemMulti({super.key, required this.title, required this.description});
 
   final String title;
   final List<String> description;
@@ -63,8 +63,8 @@ class ExerciseDetailListItemMulti extends StatelessWidget {
   }
 }
 
-class ExerciseDetailListItemNumbered extends StatelessWidget {
-  const ExerciseDetailListItemNumbered({super.key, required this.title, required this.description});
+class ExerciseDetailItemNumbered extends StatelessWidget {
+  const ExerciseDetailItemNumbered({super.key, required this.title, required this.description});
 
   final String title;
   final List<String> description;
