@@ -12,7 +12,7 @@ class Exercises extends StatelessWidget {
       ),
       body: const Padding(
         padding: EdgeInsets.only(top: 10),
-        child: RefactoredExerciseList.large(),
+        child: ExerciseList(),
       ),
     );
   }

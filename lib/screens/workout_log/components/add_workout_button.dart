@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/exercises/exerciseList/exercise_list.dart';
 
 class AddWorkoutButton extends StatelessWidget {
   const AddWorkoutButton({super.key});
@@ -13,7 +12,7 @@ class AddWorkoutButton extends StatelessWidget {
           builder: (context) {
             return const Padding(
               padding: EdgeInsets.only(top: 10),
-              child: RefactoredExerciseList.compact(),
+              child: Placeholder(),
             );
           },
         );

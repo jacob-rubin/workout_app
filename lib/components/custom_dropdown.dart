@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomDropdown extends StatefulWidget {
-  const CustomDropdown({super.key, required this.title, required this.list, required this.onChanged});
+  const CustomDropdown({
+    super.key,
+    required this.title,
+    required this.values,
+    required this.onChanged,
+  });
+
   final String title;
-  final List<String> list;
+  final List<String> values;
   final void Function(String?) onChanged;
 
   @override
@@ -11,15 +17,15 @@ class CustomDropdown extends StatefulWidget {
 }
 
 class _CustomDropdownState extends State<CustomDropdown> {
-  String? dropdownValue;
+  String? value;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: value,
       hint: Text(widget.title),
       selectedItemBuilder: (context) {
-        return widget.list.map<Widget>((String item) {
+        return widget.values.map<Widget>((String item) {
           return Row(
             children: <Widget>[
               Text(item),
@@ -27,24 +33,25 @@ class _CustomDropdownState extends State<CustomDropdown> {
           );
         }).toList();
       },
-      items: widget.list.map((String value) {
+      items: widget.values.map((String itemValue) {
         return DropdownMenuItem<String>(
-          value: value,
+          value: itemValue,
           child: Row(
             children: <Widget>[
-              if (dropdownValue == value) const Icon(Icons.check),
-              Text(value),
+              if (itemValue == value) const Icon(Icons.check),
+              Text(itemValue),
             ],
           ),
         );
       }).toList(),
-      onChanged: (String? value) {
+      onChanged: (String? itemValue) {
         setState(() {
-          if (dropdownValue == value) {
-            dropdownValue = null;
+          if (value == itemValue) {
+            value = null;
           } else {
-            dropdownValue = value!;
+            value = itemValue;
           }
+
           widget.onChanged(value);
         });
       },
