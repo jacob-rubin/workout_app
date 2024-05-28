@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/database/models/exercise.dart';
-import 'package:workout_app/screens/exercises/components/exercise_detail_list_item.dart';
+import 'package:workout_app/screens/exercises/exerciseList/exercise_detail_item.dart';
 
 class ExerciseDetail extends StatelessWidget {
   const ExerciseDetail({
@@ -13,11 +13,11 @@ class ExerciseDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> listItems = [
-      ExerciseDetailListItemSingle(title: 'Body Part', description: exercise.bodyPart),
-      ExerciseDetailListItemSingle(title: 'Target Muscle', description: exercise.targetMuscle),
-      ExerciseDetailListItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
-      ExerciseDetailListItemSingle(title: 'Equipment', description: exercise.equipment),
-      ExerciseDetailListItemNumbered(title: 'Instructions', description: exercise.instructions),
+      ExerciseDetailItemSingle(title: 'Body Part', description: exercise.bodyPart),
+      ExerciseDetailItemSingle(title: 'Target Muscle', description: exercise.targetMuscle),
+      ExerciseDetailItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
+      ExerciseDetailItemSingle(title: 'Equipment', description: exercise.equipment),
+      ExerciseDetailItemNumbered(title: 'Instructions', description: exercise.instructions),
       Image.asset("assets/360/${exercise.gifId}.gif"),
     ];
 
