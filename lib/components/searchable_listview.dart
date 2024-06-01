@@ -65,37 +65,32 @@ class _SearchableListViewState<T> extends State<SearchableListView<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          TextField(
             controller: textController,
             decoration: const InputDecoration(
               hintText: 'Search',
             ),
           ),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            for (String dropdown in dropdowns.keys)
-              CustomDropdown(
-                title: dropdown,
-                values: dropdowns[dropdown]!,
-                onChanged: dropdownFilter,
-              ),
-          ],
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: filteredItems.length,
-            itemBuilder: (context, index) {
-              return listTile(filteredItems[index]);
-            },
+          for (String dropdown in dropdowns.keys)
+            CustomDropdown(
+              title: dropdown,
+              values: dropdowns[dropdown]!,
+              onChanged: dropdownFilter,
+            ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredItems.length,
+              itemBuilder: (context, index) {
+                return listTile(filteredItems[index]);
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

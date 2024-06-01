@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:workout_app/components/searchable_listview.dart';
 import 'package:workout_app/database/models/exercise.dart';
 import 'package:workout_app/database/providers/database_provider.dart';
-import 'package:workout_app/screens/exercises/dropdown_values.dart';
+import 'package:workout_app/screens/exercises/exerciseList/dropdown_values.dart';
 import 'package:workout_app/screens/exercises/exerciseList/exercise_list_item.dart';
 
 class ExerciseList extends StatelessWidget {
