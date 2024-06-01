@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/screens/exercises/components/exercise_list.dart';
-import 'package:workout_app/screens/exercises/components/target_muscle_list.dart';
+import 'package:workout_app/screens/exercises/exerciseList/exercise_list.dart';
 
 class Exercises extends StatelessWidget {
   const Exercises({super.key});
@@ -11,15 +10,9 @@ class Exercises extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Exercises'),
       ),
-      body: const Center(
-        child: Column(
-          children: [
-            TargetMuscleList(),
-            Expanded(
-              child: ExerciseList(),
-            ),
-          ],
-        ),
+      body: const Padding(
+        padding: EdgeInsets.only(top: 10),
+        child: ExerciseList(),
       ),
     );
   }

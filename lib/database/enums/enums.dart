@@ -1,0 +1,1 @@
+enum ExerciseListType { large, compact }

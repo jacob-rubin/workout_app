@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_app/database/providers/database_provider.dart';
-import 'package:workout_app/database/providers/search_provider.dart';
+import 'package:workout_app/database/providers/exercise_search_provider.dart';
 import 'package:workout_app/database/providers/tab_provider.dart';
 import 'package:workout_app/screens/home/home.dart';
 

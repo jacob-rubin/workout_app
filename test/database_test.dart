@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
-import 'package:logger/logger.dart';
 import 'package:workout_app/database/models/exercise.dart';
 import 'package:workout_app/database/models/lift.dart';
 import 'package:workout_app/database/models/workout.dart';
@@ -48,18 +47,6 @@ void main() {
   tearDown(() async {
     await mockIsar.close(deleteFromDisk: true);
   });
-
-  Future<void> printIsarInstances([String? label]) async {
-    Logger logger = Logger();
-
-    if (label != null) {
-      logger.i(label);
-    }
-
-    logger.t('Exercises: ${await mockIsar.exercises.where().findAll()}');
-    logger.t('Lifts: ${await mockIsar.lifts.where().findAll()}');
-    logger.t('Workouts: ${await mockIsar.workouts.where().findAll()}');
-  }
 
   test('open an instance on the Isar database', () {
     final isOpen = mockIsar.isOpen;
