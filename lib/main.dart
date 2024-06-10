@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workout_app/database/providers/cloud_storage_provider.dart';
 import 'package:workout_app/database/providers/exercise_search_provider.dart';
 import 'package:workout_app/database/providers/firestore_provider.dart';
 import 'package:workout_app/database/providers/tab_provider.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TabProvider()),
         ChangeNotifierProvider(create: (context) => ExerciseSearchProvider()),
         ChangeNotifierProvider(create: (context) => FirestoreProvider()),
+        ChangeNotifierProvider(create: (context) => CloudStorageProvider()),
       ],
       child: MaterialApp(
         title: 'Workout App',
