@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:workout_app/components/searchable_listview.dart';
 import 'package:workout_app/database/models/exercise.dart';
-import 'package:workout_app/database/providers/database_provider.dart';
-import 'package:workout_app/screens/exercises/exerciseList/dropdown_values.dart';
+import 'package:workout_app/database/providers/firestore_provider.dart';
 import 'package:workout_app/screens/exercises/exerciseList/exercise_list_item.dart';
 
 class ExerciseList extends StatelessWidget {
@@ -11,16 +9,18 @@ class ExerciseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Exercise>>(
-      future: context.read<DatabaseProvider>().getExercises(),
+    return StreamBuilder(
+      stream: context.read<FirestoreProvider>().getExerciseStream(),
       builder: (context, snapshot) {
-        if (snapshot.data != null) {
-          return SearchableListView<Exercise>(
-            items: snapshot.data!,
-            listTile: (exercise) => ExerciseListItem(exercise: exercise),
-            dropdowns: {
-              'Target Muscles': targetMuscles,
-              'Equipment': equipment,
+        if (snapshot.hasData) {
+          final snap = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: snap.length,
+            itemBuilder: (context, index) {
+              return ExerciseListItem(
+                exercise: Exercise.fromMap(snap[index].data()),
+              );
             },
           );
         }

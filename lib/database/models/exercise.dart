@@ -1,20 +1,24 @@
-import 'package:isar/isar.dart';
-
-part 'exercise.g.dart';
-
-@collection
 class Exercise {
-  Id id = Isar.autoIncrement;
   late String name;
   late String bodyPart;
   late String equipment;
-  late String targetMuscle;
+  late String target;
   late List<String> secondaryMuscles;
   late List<String> instructions;
-  late String gifId;
+  late String id;
+
+  Exercise.fromMap(Map<String, dynamic> data) {
+    name = data['name'];
+    bodyPart = data['bodyPart'];
+    equipment = data['equipment'];
+    target = data['target'];
+    secondaryMuscles = List<String>.from(data['secondaryMuscles']);
+    instructions = List<String>.from(data['instructions']);
+    id = data['id'];
+  }
 
   @override
   String toString() {
-    return 'Exercise: {id: $id, name: $name, bodyPart: $bodyPart, equipment: $equipment, targetMuscle: $targetMuscle, secondaryMuscles: $secondaryMuscles, instructions: $instructions, gifId: $gifId}';
+    return 'Exercise: {name: $name, bodyPart: $bodyPart, equipment: $equipment, targetMuscle: $target, secondaryMuscles: $secondaryMuscles, instructions: $instructions, id: $id}';
   }
 }

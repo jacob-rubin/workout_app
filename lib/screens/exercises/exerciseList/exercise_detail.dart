@@ -14,11 +14,10 @@ class ExerciseDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> listItems = [
       ExerciseDetailItemSingle(title: 'Body Part', description: exercise.bodyPart),
-      ExerciseDetailItemSingle(title: 'Target Muscle', description: exercise.targetMuscle),
+      ExerciseDetailItemSingle(title: 'Target Muscle', description: exercise.target),
       ExerciseDetailItemMulti(title: 'Secondary Muscles', description: exercise.secondaryMuscles),
       ExerciseDetailItemSingle(title: 'Equipment', description: exercise.equipment),
       ExerciseDetailItemNumbered(title: 'Instructions', description: exercise.instructions),
-      Image.asset("assets/360/${exercise.gifId}.gif"),
     ];
 
     return Scaffold(
