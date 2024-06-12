@@ -19,7 +19,7 @@ class ExerciseList extends StatelessWidget {
             itemCount: snap.length,
             itemBuilder: (context, index) {
               return ExerciseListItem(
-                exercise: Exercise.fromMap(snap[index].data()),
+                exercise: Exercise.fromJson(snap[index].data()),
               );
             },
           );

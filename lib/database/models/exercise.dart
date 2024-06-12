@@ -1,21 +1,30 @@
-class Exercise {
-  late String name;
-  late String bodyPart;
-  late String equipment;
-  late String target;
-  late List<String> secondaryMuscles;
-  late List<String> instructions;
-  late String id;
+import 'package:json_annotation/json_annotation.dart';
 
-  Exercise.fromMap(Map<String, dynamic> data) {
-    name = data['name'];
-    bodyPart = data['bodyPart'];
-    equipment = data['equipment'];
-    target = data['target'];
-    secondaryMuscles = List<String>.from(data['secondaryMuscles']);
-    instructions = List<String>.from(data['instructions']);
-    id = data['id'];
-  }
+part 'exercise.g.dart';
+
+@JsonSerializable()
+class Exercise {
+  final String name;
+  final String bodyPart;
+  final String equipment;
+  final String target;
+  final List<String> secondaryMuscles;
+  final List<String> instructions;
+  final String id;
+
+  Exercise({
+    required this.name,
+    required this.bodyPart,
+    required this.equipment,
+    required this.target,
+    required this.secondaryMuscles,
+    required this.instructions,
+    required this.id,
+  });
+
+  factory Exercise.fromJson(Map<String, dynamic> json) => _$ExerciseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ExerciseToJson(this);
 
   @override
   String toString() {

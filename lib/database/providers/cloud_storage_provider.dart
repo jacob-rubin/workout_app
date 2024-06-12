@@ -12,7 +12,7 @@ class CloudStorageProvider extends ChangeNotifier {
   Future<Image> getImage(String id) async {
     final Reference imageRef = _storage.ref().child('360/$id.gif');
     final String url = await imageRef.getDownloadURL();
-    print('url: $url');
+
     return Image.network(url);
   }
 }
